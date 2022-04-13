@@ -32,14 +32,10 @@ trait HelpersTrait
     
     public function getServerAndDc($line)
     {
-        $line   = trim($line);
-    
-        // this has a very special space, its not a " " normal space
-        // its a " " space, whatever the fuck that is
-        $server = trim(explode(" ", $line)[0]);
-        $dc     = trim(explode(" ", $line)[1]);
-        $dc     = str_ireplace(['(',')'], null, $dc);
-        
+        [$server, $dc] = explode(' ', $line, 2);
+        $server = trim($server);
+        $dc = trim($dc, '[]()');
+
         return [
             $server,
             $dc
